@@ -42,10 +42,6 @@
   "name": "lai-cli",
   "oclif": {
     "flexibleTaxonomy": true,
-    "hooks": {
-      "command_incomplete": "./dist/hooks/command_incomplete.js",
-      "command_not_found": "./dist/hooks/command_not_found/command_help"
-    },
     "bin": "lai",
     "dirname": "lai",
     "commands": "./dist/commands",
