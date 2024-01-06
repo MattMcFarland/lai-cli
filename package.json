@@ -6,13 +6,15 @@
   "dependencies": {
     "@oclif/core": "^3.16.0",
     "@oclif/plugin-help": "^5.2.20",
-    "@oclif/plugin-plugins": "^4.1.14"
+    "@oclif/plugin-plugins": "^4.1.14",
+    "inquirer": "^9.2.12"
   },
   "description": "Local AI CLI Assistance and Tools",
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
     "@oclif/test": "^3.1.8",
     "@types/chai": "^4.3.11",
+    "@types/inquirer": "^9",
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.19.4",
     "chai": "^4.4.0",
@@ -39,6 +41,11 @@
   "main": "",
   "name": "lai-cli",
   "oclif": {
+    "flexibleTaxonomy": true,
+    "hooks": {
+      "command_incomplete": "./dist/hooks/command_incomplete.js",
+      "command_not_found": "./dist/hooks/command_not_found/command_help"
+    },
     "bin": "lai",
     "dirname": "lai",
     "commands": "./dist/commands",
