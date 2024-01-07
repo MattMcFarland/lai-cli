@@ -1,11 +1,3 @@
-oclif-hello-world
-=================
-
-oclif example Hello World CLI
-
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![GitHub license](https://img.shields.io/github/license/oclif/hello-world)](https://github.com/oclif/hello-world/blob/main/LICENSE)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -27,9 +19,10 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`lai hello PERSON`](#lai-hello-person)
-* [`lai hello world`](#lai-hello-world)
+* [`lai add ID`](#lai-add-id)
+* [`lai check [FILE]`](#lai-check-file)
 * [`lai help [COMMANDS]`](#lai-help-commands)
+* [`lai list [FILE]`](#lai-list-file)
 * [`lai plugins`](#lai-plugins)
 * [`lai plugins:install PLUGIN...`](#lai-pluginsinstall-plugin)
 * [`lai plugins:inspect PLUGIN...`](#lai-pluginsinspect-plugin)
@@ -40,48 +33,61 @@ USAGE
 * [`lai plugins:uninstall PLUGIN...`](#lai-pluginsuninstall-plugin-1)
 * [`lai plugins:uninstall PLUGIN...`](#lai-pluginsuninstall-plugin-2)
 * [`lai plugins update`](#lai-plugins-update)
+* [`lai status [FILE]`](#lai-status-file)
 
-## `lai hello PERSON`
+## `lai add ID`
 
-Say hello
+You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a model from a URL or from a gallery.
 
 ```
 USAGE
-  $ lai hello PERSON -f <value>
+  $ lai add ID [-n <value>]
 
 ARGUMENTS
-  PERSON  Person to say hello to
+  ID  Gallery ID or URL identifier of the model
 
 FLAGS
-  -f, --from=<value>  (required) Who is saying hello
+  -n, --name=<value>  Optional name for the installed model
 
 DESCRIPTION
-  Say hello
+  You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a
+  model from a URL or from a gallery.
 
 EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
+  $ lai add github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
+
+  $ lai add TheBloke/dolphin-2.2.1-mistral-7B-GGUF/dolphin-2.2.1-mistral-7b.Q4_0.gguf --name magic
+
+  $ lai add <GALLERY>@<MODEL_NAME> (e.g., model-gallery@bert-embeddings)
+
+  $ lai add https://github.com/go-skynet/model-gallery/blob/main/openllama_3b.yaml
 ```
 
-_See code: [src/commands/hello/index.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/src/commands/hello/index.ts)_
+_See code: [dist/commands/add.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/add.ts)_
 
-## `lai hello world`
+## `lai check [FILE]`
 
-Say hello world
+describe the command here
 
 ```
 USAGE
-  $ lai hello world
+  $ lai check [FILE] [-n <value>] [-f]
+
+ARGUMENTS
+  FILE  file to read
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
 
 DESCRIPTION
-  Say hello world
+  describe the command here
 
 EXAMPLES
-  $ lai hello world
-  hello world! (./src/commands/hello/world.ts)
+  $ lai check
 ```
 
-_See code: [src/commands/hello/world.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/src/commands/hello/world.ts)_
+_See code: [dist/commands/check.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/check.ts)_
 
 ## `lai help [COMMANDS]`
 
@@ -101,7 +107,31 @@ DESCRIPTION
   Display help for lai.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/lib/commands/help.ts)_
+
+## `lai list [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ lai list [FILE] [-n <value>] [-f]
+
+ARGUMENTS
+  FILE  file to read
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ lai list
+```
+
+_See code: [dist/commands/list.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/list.ts)_
 
 ## `lai plugins`
 
@@ -124,7 +154,7 @@ EXAMPLES
   $ lai plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/index.ts)_
 
 ## `lai plugins:install PLUGIN...`
 
@@ -193,7 +223,7 @@ EXAMPLES
   $ lai plugins inspect myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/inspect.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/inspect.ts)_
 
 ## `lai plugins:install PLUGIN...`
 
@@ -237,7 +267,7 @@ EXAMPLES
   $ lai plugins install someuser/someplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/install.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/install.ts)_
 
 ## `lai plugins:link PLUGIN`
 
@@ -267,7 +297,7 @@ EXAMPLES
   $ lai plugins link myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/link.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/link.ts)_
 
 ## `lai plugins:uninstall PLUGIN...`
 
@@ -304,7 +334,7 @@ USAGE
   $ lai plugins reset
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/reset.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/reset.ts)_
 
 ## `lai plugins:uninstall PLUGIN...`
 
@@ -332,7 +362,7 @@ EXAMPLES
   $ lai plugins uninstall myplugin
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/uninstall.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/uninstall.ts)_
 
 ## `lai plugins:uninstall PLUGIN...`
 
@@ -376,5 +406,29 @@ DESCRIPTION
   Update installed plugins.
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.12/src/commands/plugins/update.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v4.1.14/lib/commands/plugins/update.ts)_
+
+## `lai status [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ lai status [FILE] [-n <value>] [-f]
+
+ARGUMENTS
+  FILE  file to read
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ lai status
+```
+
+_See code: [dist/commands/status.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/status.ts)_
 <!-- commandsstop -->

@@ -7,6 +7,9 @@
     "@oclif/core": "^3.16.0",
     "@oclif/plugin-help": "^5.2.20",
     "@oclif/plugin-plugins": "^4.1.14",
+    "@types/dotenv": "^8.2.0",
+    "axios": "^1.6.5",
+    "dotenv": "^16.3.1",
     "inquirer": "^9.2.12"
   },
   "description": "Local AI CLI Assistance and Tools",
