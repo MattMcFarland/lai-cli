@@ -1,7 +1,17 @@
 import {Errors} from '@oclif/core'
 
 import Joi from 'joi'
-import {BaseCommand} from './system.js'
+import didYouMean, {ReturnTypeEnums, ThresholdTypeEnums} from 'didyoumean2'
+
+// use ReturnTypeEnums.ALL_SORTED_MATCHES to get all matches
+export function findSimilarStrings(target: string, candidates: string[], limit: number = 4): string[] {
+  return didYouMean(target, candidates, {
+    caseSensitive: false,
+    returnType: ReturnTypeEnums.ALL_SORTED_MATCHES,
+    thresholdType: ThresholdTypeEnums.SIMILARITY,
+    threshold: 0,
+  }).slice(0, limit)
+}
 
 const modelDefinitionUriSchema = Joi.string().custom((value, helpers) => {
   function determineUriIssue(uri: string) {
@@ -54,20 +64,3 @@ export const modelInstallationRequestSchema = Joi.object({
 })
   .xor('id', 'url')
   .required()
-
-export function handleCommonErrors(commandInstance: BaseCommand, error: any) {
-  if (error.code === 'ECONNREFUSED') {
-    commandInstance.error(error.message, {
-      code: 'ECONNREFUSED',
-      suggestions: [
-        `Is your service running at ${commandInstance.hostname}?`,
-        'You may need to configure the address by setting the ADDRESS environment variable',
-        'Example: ADDRESS=localhost:8080 lai status',
-        'You can also set the address by passing the --address flag to the command',
-        'Example: lai --address=localhost:8080 status',
-      ],
-    })
-  } else {
-    commandInstance.error(error)
-  }
-}

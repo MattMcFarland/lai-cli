@@ -1,5 +1,29 @@
 import axios, {AxiosInstance} from 'axios'
-import {Command, Flags} from '@oclif/core'
+import {Command, Flags, ux} from '@oclif/core'
+import {CLIError} from '@oclif/core/lib/errors/index.js'
+
+export interface ModelInstallationRequestWithId {
+  id: string
+  url?: string | null
+  name?: string | null
+}
+
+export interface ModelInstallationRequestWithUrl {
+  id?: string | null
+  url: string
+  name?: string | null
+}
+
+export type ModelInstallationRequest = ModelInstallationRequestWithId | ModelInstallationRequestWithUrl
+
+export interface Model extends Record<string, unknown> {
+  id: string
+  object: string
+}
+
+export interface AxiosModelStatusResponse {
+  data: Model[]
+}
 
 export const routes = {
   models_apply: 'models/apply',
@@ -34,10 +58,28 @@ export abstract class BaseCommand extends Command {
     }),
   }
   protected connect!: AxiosInstance
+  protected validateModelExists!: (modelId: string) => Promise<void>
   hostname!: string
+
   async init() {
     const {flags} = await this.parse(this.constructor as typeof BaseCommand)
     this.hostname = flags.address
     this.connect = axios.create({baseURL: buildBaseUri(flags.address)})
+  }
+  protected async catchCommonErrors(error: any) {
+    if (error.code === 'ECONNREFUSED') {
+      throw new CLIError(error.message, {
+        code: 'ECONNREFUSED',
+        suggestions: [
+          `Is your service running at ${this.hostname}?`,
+          'You may need to configure the address by setting the ADDRESS environment variable',
+          'Example: ADDRESS=localhost:8080 lai status',
+          'You can also set the address by passing the --address flag to the command',
+          'Example: lai --address=localhost:8080 status',
+        ],
+      })
+    } else {
+      throw error
+    }
   }
 }

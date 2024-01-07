@@ -1,6 +1,6 @@
 import {Command, Flags, Args, ux, Errors} from '@oclif/core'
 import {routes, BaseCommand} from '../system.js'
-import {handleCommonErrors, modelInstallationRequestSchema} from '../tools.js'
+import {modelInstallationRequestSchema} from '../tools.js'
 
 interface ModelInstallationRequestWithId {
   id: string
@@ -129,19 +129,15 @@ export default class Add extends BaseCommand {
     const {args, flags} = await this.parse(Add)
     const id = args.id
     const name = flags.name
-    try {
-      const modelInstallationResponse = await this.connect.post(routes.models_apply, {
-        headers: {'Content-Type': 'application/json'},
-        data: Add.createModelInstallationRequest(id, name || ''),
-      })
-      this.initializeProgressBar(modelInstallationResponse.data.file_size)
-      ux.action.start('Installing model')
-      await this.pollJobStatus(modelInstallationResponse.data.uuid)
 
-      ux.action.stop('Installation completed')
-    } catch (error: any) {
-      ux.action.stop('Failed')
-      handleCommonErrors(this, error)
-    }
+    const modelInstallationResponse = await this.connect.post(routes.models_apply, {
+      headers: {'Content-Type': 'application/json'},
+      data: Add.createModelInstallationRequest(id, name || ''),
+    })
+    this.initializeProgressBar(modelInstallationResponse.data.file_size)
+    ux.action.start('Installing model')
+    await this.pollJobStatus(modelInstallationResponse.data.uuid)
+
+    ux.action.stop('Installation completed')
   }
 }

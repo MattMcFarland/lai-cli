@@ -1,30 +1,46 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {ux} from '@oclif/core'
+import {BaseCommand, routes} from '../system.js'
 
-export default class Status extends Command {
-  static description = 'describe the command here'
+import {AxiosModelStatusResponse, Model} from '../system.js'
 
-  static examples = [
-    '<%= config.bin %> <%= command.id %>',
-  ]
+export default class Status extends BaseCommand {
+  static description = 'Shows currently active models'
 
-  static flags = {
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: Flags.boolean({char: 'f'}),
-  }
-
-  static args = {
-    file: Args.string({description: 'file to read'}),
-  }
+  static examples = ['<%= config.bin %> <%= command.id %>']
 
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(Status)
+    ux.action.start('Checking for active models')
+    try {
+      const response = await this.connect<AxiosModelStatusResponse>(routes.models_active)
+      ux.action.stop()
+      const modelList = response.data.data
 
-    const name = flags.name ?? 'world'
-    this.log(`hello ${name} from /mnt/c/Users/conta/Documents/GitHub/lai-cli/src/commands/status.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
+      ux.styledHeader('Active Models')
+      if (modelList.length === 0) {
+        this.log('No active models found')
+        this.log('Use `lai add` to install a model.')
+        this.log('To see a list of locally available (but not installed) models, use `lai list -local`')
+      } else {
+        const modelsAsRecords = modelList.map((model: Model) => {
+          return {
+            id: model.id,
+          }
+        })
+        this.log('These models are currently active and ready for use')
+        this.log('They were derived from existing models in the /models directory')
+
+        ux.table(modelsAsRecords, {
+          id: {
+            minWidth: 20,
+            header: 'ID',
+          },
+        })
+        this.log('To see a list of locally available (but not installed) models, use `lai list -local`')
+        this.log(`also try: 'lai check ${modelList[0].id}' to validate the model`)
+      }
+    } catch (error: any) {
+      ux.action.stop('failed')
+      throw error
     }
   }
 }
