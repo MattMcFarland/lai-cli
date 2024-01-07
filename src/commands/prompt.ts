@@ -70,7 +70,7 @@ export default class Prompt extends BaseCommand {
       command: '<%= config.bin %> <%= command.id %> lunademo --system "answer questions" --user "What is your name?"',
     },
   ]
-  static usage = 'prompt <MODEL_NAME> -u [user-prompt] -s [system-prompt] --help'
+  static usage = 'prompt <MODEL_NAME> -u [user-prompt] -s [system-prompt] [...flags] --help'
   static flags = {
     json: Flags.boolean({
       char: 'j',
@@ -89,7 +89,7 @@ export default class Prompt extends BaseCommand {
       default: 90,
     }),
     assistant: Flags.string({
-      char: 'a',
+      aliases: ['as'],
       description: 'The assistant message to send to the model',
       required: false,
     }),
@@ -162,7 +162,7 @@ export default class Prompt extends BaseCommand {
         modelId,
         data.data.map((model: Model) => model.id),
       )
-      console.log(similar)
+
       ux.action.stop('not found')
       if (similar.length > 0) {
         const answers = await inquirer.prompt({
@@ -179,10 +179,7 @@ export default class Prompt extends BaseCommand {
         if (!answers.useTopSuggestion) {
           throw new CLIError('Model not found', {
             code: 'EMODELNOTFOUND',
-            suggestions: [
-              `Maybe you meant one of these: ${similar.join(', ')}`,
-              `Verify the model is active by running \`lai status\``,
-            ],
+            suggestions: [`lai add ${similar[0]} \n\t or one of these: \n\t${similar.join(', ')}`],
           })
         }
       } else {
@@ -333,15 +330,9 @@ export default class Prompt extends BaseCommand {
   async catch(error: any) {
     ux.action.stop('failed')
     if (error.code === 'ECONNABORTED') {
-      return this.error(error.message, {
+      return this.error(`${error.message})`, {
         code: 'ECONNABORTED',
-        suggestions: [
-          `Configured to abort after ${Prompt.flags.timeout} seconds.`,
-          'Try increasing the timeout using the -t flag.',
-          ' Example: lai prompt <MODEL_NAME> ' + ux.colorize('blue', '-t 120'),
-          'Verify the model is running',
-          ' try ' + ux.colorize('blue', 'lai status'),
-        ],
+        suggestions: [`lai prompt ${Prompt.validatedModel} -t 120`],
       })
     } else {
       return this.catchCommonErrors(error)

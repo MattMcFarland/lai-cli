@@ -56,7 +56,14 @@ export abstract class BaseCommand extends Command {
       required: false,
       env: 'ADDRESS',
     }),
+    json: Flags.boolean({
+      char: 'j',
+      description: 'Output in JSON format',
+      default: false,
+      required: false,
+    }),
   }
+
   protected connect!: AxiosInstance
   protected validateModelExists!: (modelId: string) => Promise<void>
   hostname!: string

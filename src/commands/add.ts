@@ -26,11 +26,11 @@ export default class Add extends BaseCommand {
   ]
   static helpfulHints = [
     'To install a model from a gallery, use the following format: <GALLERY>@<MODEL_NAME> (e.g., model-gallery@bert-embeddings)',
-    'To install a model from a URL, use the following format: ',
+    'To install a model from a GitHub repository, use the following format: github:<USER>/<REPO>/<PATH_TO_MODEL_DEFINITION> (e.g., github:go-skynet/model-gallery/gpt4all-j.yaml)',
     `Consider trying this command: ${Add.examples[Math.floor(Math.random() * Add.examples.length)]}`,
   ]
   static description = 'Install a model from a gallery or a URL' + '\n\n' + Add.helpfulHints.join('\n')
-  static summary = 'Install a model from a gallery or a URL (lai add model-gallery@bluedemo or lai add <URL>)'
+  static summary = 'Install a model from a gallery or a URL'
 
   hasDynamicHelp = true
   static flags = {
