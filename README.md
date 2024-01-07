@@ -19,9 +19,12 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`lai a ID`](#lai-a-id)
 * [`lai add ID`](#lai-add-id)
 * [`lai check [FILE]`](#lai-check-file)
 * [`lai help [COMMANDS]`](#lai-help-commands)
+* [`lai i ID`](#lai-i-id)
+* [`lai install ID`](#lai-install-id)
 * [`lai list [FILE]`](#lai-list-file)
 * [`lai plugins`](#lai-plugins)
 * [`lai plugins:install PLUGIN...`](#lai-pluginsinstall-plugin)
@@ -34,6 +37,39 @@ USAGE
 * [`lai plugins:uninstall PLUGIN...`](#lai-pluginsuninstall-plugin-2)
 * [`lai plugins update`](#lai-plugins-update)
 * [`lai status [FILE]`](#lai-status-file)
+
+## `lai a ID`
+
+You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a model from a URL or from a gallery.
+
+```
+USAGE
+  $ lai a ID [-n <vlue>]
+
+ARGUMENTS
+  ID  Gallery ID or URL identifier of the model
+
+FLAGS
+  -n, --name=<value>  Optional name for the installed model
+
+DESCRIPTION
+  You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a
+  model from a URL or from a gallery.
+
+ALIASES
+  $ lai install
+  $ lai i
+  $ lai a
+
+EXAMPLES
+  $ lai a github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
+
+  $ lai a TheBloke/dolphin-2.2.1-mistral-7B-GGUF/dolphin-2.2.1-mistral-7b.Q4_0.gguf --name magic
+
+  $ lai a <GALLERY>@<MODEL_NAME> (e.g., model-gallery@bert-embeddings)
+
+  $ lai a https://github.com/go-skynet/model-gallery/blob/main/openllama_3b.yaml
+```
 
 ## `lai add ID`
 
@@ -52,6 +88,11 @@ FLAGS
 DESCRIPTION
   You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a
   model from a URL or from a gallery.
+
+ALIASES
+  $ lai install
+  $ lai i
+  $ lai a
 
 EXAMPLES
   $ lai add github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
@@ -108,6 +149,72 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/lib/commands/help.ts)_
+
+## `lai i ID`
+
+You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a model from a URL or from a gallery.
+
+```
+USAGE
+  $ lai i ID [-n <value>]
+
+ARGUMENTS
+  ID  Gallery ID or URL identifier of the model
+
+FLAGS
+  -n, --name=<value>  Optional name for the installed model
+
+DESCRIPTION
+  You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a
+  model from a URL or from a gallery.
+
+ALIASES
+  $ lai install
+  $ lai i
+  $ lai a
+
+EXAMPLES
+  $ lai i github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
+
+  $ lai i TheBloke/dolphin-2.2.1-mistral-7B-GGUF/dolphin-2.2.1-mistral-7b.Q4_0.gguf --name magic
+
+  $ lai i <GALLERY>@<MODEL_NAME> (e.g., model-gallery@bert-embeddings)
+
+  $ lai i https://github.com/go-skynet/model-gallery/blob/main/openllama_3b.yaml
+```
+
+## `lai install ID`
+
+You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a model from a URL or from a gallery.
+
+```
+USAGE
+  $ lai install ID [-n <value>]
+
+ARGUMENTS
+  ID  Gallery ID or URL identifier of the model
+
+FLAGS
+  -n, --name=<value>  Optional name for the installed model
+
+DESCRIPTION
+  You can install a model in runtime, while the API is running and it is started already. Furthermore, you can install a
+  model from a URL or from a gallery.
+
+ALIASES
+  $ lai install
+  $ lai i
+  $ lai a
+
+EXAMPLES
+  $ lai install github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
+
+  $ lai install TheBloke/dolphin-2.2.1-mistral-7B-GGUF/dolphin-2.2.1-mistral-7b.Q4_0.gguf --name magic
+
+  $ lai install <GALLERY>@<MODEL_NAME> (e.g., model-gallery@bert-embeddings)
+
+  $ lai install https://github.com/go-skynet/model-gallery/blob/main/openllama_3b.yaml
+```
 
 ## `lai list [FILE]`
 

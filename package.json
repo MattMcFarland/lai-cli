@@ -8,9 +8,11 @@
     "@oclif/plugin-help": "^5.2.20",
     "@oclif/plugin-plugins": "^4.1.14",
     "@types/dotenv": "^8.2.0",
+    "@types/joi": "^17.2.3",
     "axios": "^1.6.5",
     "dotenv": "^16.3.1",
-    "inquirer": "^9.2.12"
+    "inquirer": "^9.2.12",
+    "joi": "^17.11.0"
   },
   "description": "Local AI CLI Assistance and Tools",
   "devDependencies": {
@@ -57,6 +59,9 @@
       "hello": {
         "description": "Say hello to the world and others"
       }
+    },
+    "hooks": {
+      "init": "./dist/hooks/init/add-env-vars"
     }
   },
   "repository": "MattMcFarland/lai-cli",
