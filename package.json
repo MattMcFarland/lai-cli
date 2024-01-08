@@ -22,7 +22,7 @@
   "description": "Local AI CLI Assistance and Tools",
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
-    "@oclif/test": "^3.1.8",
+    "@oclif/test": "^3.1.10",
     "@types/chai": "^4.3.11",
     "@types/inquirer": "^9",
     "@types/lunr": "^2.3.7",
