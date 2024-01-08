@@ -26,11 +26,15 @@ Provide a human-centric CLI for interacting with LocalAI:
 - helful hints, interactive prompts (when needed)
 - search and filter powered by lunrjs
 - add and test different models, include sending prompts, etc.
+# Installation
+## Download Release
+1. Go to [Releases](https://github.com/MattMcFarland/lai-cli/releases/tag/1.0.0) and download the tarball that best fits your environment.
+2. unpack/unzip the file, then add it to your PATHS variable.
+ 
 
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g lai-cli
 $ lai COMMAND
 running command...
 $ lai (--version)
