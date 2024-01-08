@@ -6,14 +6,14 @@ Lai was born out of a desire to simplify the process of interacting with models 
 terminal to interact with the server in examples.  The main purpose of lai is to provide intuitive paths for search, download, and test of LLMs.  It mostly came from my own lack of skill using `jq` and `curl`, but
 still wanting the ease and use of a CLI. 
 
-Lai's speciality is to facilitate the exploration of AI models hosted (or accessible) via your favorite Local AI Server instance. The searching feature is powered by lunr (https://lunrjs.com), a lightweight search library providing a great search experience.  The data is then made even more accessible thanks to OCLIF’s masterful UX framework which provides some handly tools for deailing with tabular data.
+Lai's speciality is to facilitate the exploration of AI models hosted (or accessible) via your favorite Local AI Server instance. The searching feature is powered by lunr (https://lunrjs.com), a lightweight search library providing a great search experience.  The data is then made even more accessible thanks to [OCLIF](https://oclif.io/)’s masterful UX framework which provides some handly tools for deailing with tabular data.
 
 # Design Philosophy
 Provide a human-centric CLI for interacting with LocalAI:
 
 - interop with commands line grep and sed 
 - proper stdout and stderr usage (hopefully)
-- output of json, yaml, csv, or pretty cli table (thanks to OCLIF)
+- output of json, yaml, csv, or pretty cli table (thanks to [OCLIF](https://oclif.io/))
 - helful hints, interactive prompts (when needed)
 - search and filter powered by lunrjs
 - add and test different models, include sending prompts, etc.
