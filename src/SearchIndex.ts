@@ -45,12 +45,6 @@ interface ClientSideModelEntry extends Record<string, unknown> {
   id: string
 }
 
-type SearchAlgorithm = 'lunr' | 'didyoumean' | 'stringmatch'
-
-export interface SearchIndexOptions {
-  searchAlgorithm: SearchAlgorithm
-}
-
 export class SearchIndex<T extends Indexable> {
   private index: Map<string, T>
   private reverseLookup: Map<string, Set<string>>

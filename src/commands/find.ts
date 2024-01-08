@@ -3,6 +3,12 @@ import {Args, Command, Flags, ux} from '@oclif/core'
 import {routes, BaseCommand} from '../system.js'
 import {ClientsideModelPresentationEntry, SearchIndex} from '../SearchIndex.js'
 import {convertObjectValuesToStrings, getUniqueHash} from '../tools.js'
+import {get} from 'http'
+
+interface Hint {
+  topic: string
+  message: string
+}
 
 export interface FilterType {
   tag?: string
@@ -86,7 +92,8 @@ interface ServersideGalleryEntry extends Record<string, unknown> {
 }
 
 export default class Find extends BaseCommand {
-  static description = 'describe the command here'
+  static description =
+    'Search for models, filtering by properties, with full or partial searching by text, phrase, etc. inclusion exclusion, anrd more'
 
   static examples = ['<%= config.bin %> <%= command.id %>']
   static args = {
@@ -233,16 +240,113 @@ export default class Find extends BaseCommand {
           extended: flags.tag ? false : matchedKeysString.includes('tag') ? false : true,
         },
         urls: {
-          extended: flags.url ? false : matchedKeysString.includes('url') ? false : true,
+          extended: flags.url ? false : true,
         },
         files: {
-          extended: flags.file ? false : matchedKeysString.includes('file') ? false : true,
+          extended: true,
         },
         overrides: {
-          extended: matchedKeysString.includes('overrides') ? false : true,
+          extended: true,
         },
       },
       options,
     )
+
+    this.log(`\n${searchResults.length} models found.`)
+    this.log(`matches found in: ${matchedKeysString}  `)
+    this.log(`use --extended to see all columns.  `)
+    this.log(this.quickhint())
   }
+
+  quickhint(): string {
+    return this.hint(this.getRandomHint(this.hints))
+  }
+  getRandomHint(hints: Hint[]): Hint {
+    const randomIndex = Math.floor(Math.random() * hints.length)
+    return hints[randomIndex]
+  }
+
+  hint(hint: Hint): string {
+    const {topic, message} = hint
+    return `${ux.colorize('bold', topic)}: ${message}`
+  }
+  hints = [
+    {topic: 'Local Models First', message: 'Quickly find local models by using the -c or --local flag.'},
+    {topic: 'Direct URL Access', message: 'Finding models from a known URL? Try --url=<url-string>!'},
+    {topic: 'File Specific Search', message: 'If you need a model with a particular file, use --file=<filename>.'},
+    {topic: 'Quick JSON Output', message: 'Get results in JSON format swiftly with -j or --json.'},
+    {
+      topic: 'CSV for Spreadsheets',
+      message: 'Export your search results to CSV using --csv flag for easy spreadsheet use.',
+    },
+    {topic: 'Adjusting Visibility', message: 'Reduce column output using --columns=<col1,col2,...>.'},
+    {topic: 'Sorting Results', message: 'Order your search results with --sort=<property-name>.'},
+    {
+      topic: 'Partial String Matching',
+      message: 'Use the filter flag for substring matching like --filter name=partofname.',
+    },
+    {topic: 'Full Display', message: 'Prevent truncation and show full output with --no-truncate.'},
+    {topic: 'Cleaner Tables', message: 'Hide table headers in output using --no-header.'},
+    {topic: 'Alternative Outputs', message: 'Besides JSON and CSV, you can also export to YAML with --output=yaml.'},
+    {topic: 'Search Shortcuts', message: "Remember the aliases, 'f' or 'list', for quick command access."},
+    {topic: 'Dynamic Searches', message: 'Combine flags for complex searches, such as --tag NLP --license MIT.'},
+    {
+      topic: 'Exploring Overrides',
+      message: 'sarch overrides with `lai find "overrides:term"` to find models with specific overrides.',
+    },
+    {
+      topic: 'Refine Your Results',
+      message: 'Chain filters together to narrow down your search, like --gallery mygallery --file .yaml.',
+    },
+    {
+      topic: 'Require Terms',
+      message:
+        'Use a plus sign to narrow down your search. Example: `lai find "+vicuna +lora"` finds entries containing both "vicuna" and "lora".',
+    },
+    {
+      topic: 'Exclude Terms',
+      message:
+        'A minus sign excludes terms. Example: `lai find "-llama +pytorch"` finds entries containing "pytorch" but not "llama".',
+    },
+    {
+      topic: 'Partial Matches',
+      message:
+        'Filters use partial matches by default, so `lai find model --name=beluga` will match all models with "beluga" in their name.',
+    },
+    {
+      topic: 'Combine Filters',
+      message:
+        'You can combine filters for precision. Example: `lai find "+tag:facebook +tag:meta"` finds all Meta models using PyTorch.',
+    },
+    {
+      topic: 'Wildcard Searches',
+      message:
+        'Asterisks act as wildcards. Example: `lai find "*gpt*"` will match any entry with "gpt" anywhere in the text.',
+    },
+    {
+      topic: 'Phrase Searches',
+      message:
+        'Quotation marks search for exact phrases. Example: `lai find "\\"text generation\\""` searches for the exact phrase "text generation".',
+    },
+    {
+      topic: 'Fuzzy Searches',
+      message:
+        'Tilde allows fuzzy matching. Example: `lai find "modle~1"` will match "model" with a one character difference tolerated.',
+    },
+    {
+      topic: 'Boosting Terms',
+      message:
+        'Caret boosts the importance of a term. Example: `lai find "pytorch^5 llama"` prioritizes "pytorch" over "llama".',
+    },
+    {
+      topic: 'Filter on Multiple Values',
+      message:
+        'Use the search argument to search on multiple tags. Example: `lai find "tag:en tag:es"` finds models supporting both English and Spanish.',
+    },
+    {
+      topic: 'Multiple Filter Types',
+      message:
+        'Different flags filter different columns. Example: `lai find --license=mit --tag=dolly` finds MIT licensed models trained on the "dolly" dataset.',
+    },
+  ]
 }
