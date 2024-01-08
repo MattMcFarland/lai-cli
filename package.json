@@ -15,7 +15,9 @@
     "dotenv": "^16.3.1",
     "fast-levenshtein": "^3.0.0",
     "inquirer": "^9.2.12",
-    "joi": "^17.11.0"
+    "joi": "^17.11.0",
+    "lunr": "^2.3.9",
+    "uuid": "^9.0.1"
   },
   "description": "Local AI CLI Assistance and Tools",
   "devDependencies": {
@@ -23,8 +25,10 @@
     "@oclif/test": "^3.1.8",
     "@types/chai": "^4.3.11",
     "@types/inquirer": "^9",
+    "@types/lunr": "^2.3.7",
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.19.4",
+    "@types/uuid": "^9",
     "chai": "^4.4.0",
     "eslint": "^8.56.0",
     "eslint-config-oclif": "^5.0.0",

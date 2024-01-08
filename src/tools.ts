@@ -1,5 +1,5 @@
 import {Errors} from '@oclif/core'
-
+import * as crypto from 'crypto'
 import Joi from 'joi'
 import didYouMean, {ReturnTypeEnums, ThresholdTypeEnums} from 'didyoumean2'
 
@@ -64,3 +64,68 @@ export const modelInstallationRequestSchema = Joi.object({
 })
   .xor('id', 'url')
   .required()
+
+export function getUniqueHash(str: string): string {
+  const sha256Hash = crypto.createHash('sha256').update(str).digest()
+
+  // Encode the binary hash as base64
+  const base64Hash = sha256Hash.toString('base64')
+
+  // Optionally replace standard base64 characters that are not URL-safe if needed.
+  const urlSafeBase64Hash = base64Hash.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+
+  return urlSafeBase64Hash
+}
+// Convert all values in an object to strings and return them as an array
+// this is for the search!!
+export function convertObjectValuesToStrings(obj: any, excludeKeys: string[] = []): string[] {
+  let result: string[] = []
+
+  function recurse(currentObj: any) {
+    for (let key in currentObj) {
+      if (currentObj.hasOwnProperty(key)) {
+        const value = currentObj[key]
+        if (typeof value === 'object' && value !== null) {
+          recurse(value)
+        } else {
+          if (excludeKeys.includes(key)) continue
+          result.push(String(value))
+        }
+      }
+    }
+  }
+
+  recurse(obj)
+
+  return result.reduce((acc, curr) => {
+    if (curr === 'null' || curr === 'undefined' || !curr || !curr.trim()) return acc
+    return [...acc, curr.trim()]
+  }, [] as string[])
+
+  // .forEach((value, index) => {
+  //   if (value === 'null' || value === 'undefined') result[index] = ''
+  // })
+  return result.join('\n').toLowerCase().split(' ')
+}
+
+function extractTopKeywords(text: string): string[] {
+  // Normalize text to lowercase and remove non-alphabetic characters
+  const normalizedText = text.toLowerCase().replace(/[^\w\s]/gi, '')
+
+  // Split text into words
+  const words = normalizedText.split(/\s+/)
+
+  // Count frequency of each word using a map object
+  const frequencyMap: Record<string, number> = words.reduce((map: Record<string, number>, word: string) => {
+    map[word] = (map[word] || 0) + 1
+    return map
+  }, {})
+
+  // Create pairs [word, count] and sort by count in descending order
+  const sortedWords: [string, number][] = Object.entries(frequencyMap).sort((a, b) => b[1] - a[1])
+
+  // Extract the top 3 words
+  const topKeywords: string[] = sortedWords.slice(0, 3).map((entry) => entry[0])
+
+  return topKeywords
+}
