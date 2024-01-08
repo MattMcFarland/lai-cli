@@ -27,7 +27,7 @@
     "@types/inquirer": "^9",
     "@types/lunr": "^2.3.7",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^18.19.4",
+    "@types/node": "^18.19.5",
     "@types/uuid": "^9",
     "chai": "^4.4.0",
     "eslint": "^8.56.0",
