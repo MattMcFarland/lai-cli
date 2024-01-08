@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 6
   cacheKey: 10c0
 
 "@aashutoshrathi/word-wrap@npm:^1.2.3":
@@ -3979,9 +3979,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: "npm:latest"
   conditions: os=darwin
@@ -5456,38 +5456,38 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "lai-cli@workspace:."
   dependencies:
-    "@oclif/core": "npm:^3.16.0"
-    "@oclif/plugin-help": "npm:^5.2.20"
-    "@oclif/plugin-plugins": "npm:^4.1.14"
-    "@oclif/prettier-config": "npm:^0.2.1"
-    "@oclif/test": "npm:^3.1.8"
-    "@types/chai": "npm:^4.3.11"
-    "@types/dotenv": "npm:^8.2.0"
-    "@types/fast-levenshtein": "npm:^0.0.4"
-    "@types/inquirer": "npm:^9"
-    "@types/joi": "npm:^17.2.3"
-    "@types/lunr": "npm:^2.3.7"
-    "@types/mocha": "npm:^10.0.6"
-    "@types/node": "npm:^18.19.4"
-    "@types/uuid": "npm:^9"
-    axios: "npm:^1.6.5"
-    chai: "npm:^4.4.0"
-    didyoumean2: "npm:^6.0.1"
-    dotenv: "npm:^16.3.1"
-    eslint: "npm:^8.56.0"
-    eslint-config-oclif: "npm:^5.0.0"
-    eslint-config-oclif-typescript: "npm:^3.0.33"
-    eslint-config-prettier: "npm:^9.1.0"
-    fast-levenshtein: "npm:^3.0.0"
-    inquirer: "npm:^9.2.12"
-    joi: "npm:^17.11.0"
-    lunr: "npm:^2.3.9"
-    mocha: "npm:^10.2.0"
-    oclif: "npm:^4.1.3"
-    shx: "npm:^0.3.4"
-    ts-node: "npm:^10.9.2"
-    typescript: "npm:^5.3.3"
-    uuid: "npm:^9.0.1"
+    "@oclif/core": ^3.16.0
+    "@oclif/plugin-help": ^5.2.20
+    "@oclif/plugin-plugins": ^4.1.14
+    "@oclif/prettier-config": ^0.2.1
+    "@oclif/test": ^3.1.8
+    "@types/chai": ^4.3.11
+    "@types/dotenv": ^8.2.0
+    "@types/fast-levenshtein": ^0.0.4
+    "@types/inquirer": ^9
+    "@types/joi": ^17.2.3
+    "@types/lunr": ^2.3.7
+    "@types/mocha": ^10.0.6
+    "@types/node": ^18.19.4
+    "@types/uuid": ^9
+    axios: ^1.6.5
+    chai: ^4.4.0
+    didyoumean2: ^6.0.1
+    dotenv: ^16.3.1
+    eslint: ^8.56.0
+    eslint-config-oclif: ^5.0.0
+    eslint-config-oclif-typescript: ^3.0.33
+    eslint-config-prettier: ^9.1.0
+    fast-levenshtein: ^3.0.0
+    inquirer: ^9.2.12
+    joi: ^17.11.0
+    lunr: ^2.3.9
+    mocha: ^10.2.0
+    oclif: ^4.1.4
+    shx: ^0.3.4
+    ts-node: ^10.9.2
+    typescript: ^5.3.3
+    uuid: ^9.0.1
   bin:
     lai: ./bin/run.js
   languageName: unknown
@@ -6906,31 +6906,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oclif@npm:^4.1.3":
-  version: 4.1.3
-  resolution: "oclif@npm:4.1.3"
+"oclif@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "oclif@npm:4.1.4"
   dependencies:
-    "@oclif/core": "npm:^3.16.0"
-    "@oclif/plugin-help": "npm:^6.0.9"
-    "@oclif/plugin-not-found": "npm:^3.0.7"
-    "@oclif/plugin-warn-if-update-available": "npm:^3.0.8"
-    async-retry: "npm:^1.3.3"
-    aws-sdk: "npm:^2.1231.0"
-    change-case: "npm:^4"
-    debug: "npm:^4.3.3"
-    eslint-plugin-perfectionist: "npm:^2.1.0"
-    find-yarn-workspace-root: "npm:^2.0.0"
-    fs-extra: "npm:^8.1"
-    github-slugger: "npm:^1.5.0"
-    got: "npm:^11"
-    lodash.template: "npm:^4.5.0"
-    normalize-package-data: "npm:^3.0.3"
-    semver: "npm:^7.3.8"
-    yeoman-environment: "npm:^3.15.1"
-    yeoman-generator: "npm:^5.8.0"
+    "@oclif/core": ^3.16.0
+    "@oclif/plugin-help": ^6.0.9
+    "@oclif/plugin-not-found": ^3.0.7
+    "@oclif/plugin-warn-if-update-available": ^3.0.8
+    async-retry: ^1.3.3
+    aws-sdk: ^2.1231.0
+    change-case: ^4
+    debug: ^4.3.3
+    eslint-plugin-perfectionist: ^2.1.0
+    find-yarn-workspace-root: ^2.0.0
+    fs-extra: ^8.1
+    github-slugger: ^1.5.0
+    got: ^11
+    lodash.template: ^4.5.0
+    normalize-package-data: ^3.0.3
+    semver: ^7.3.8
+    yeoman-environment: ^3.15.1
+    yeoman-generator: ^5.8.0
   bin:
     oclif: bin/run.js
-  checksum: 407a678a1f0e540fe4d21713d16ccdddcedc2ca16dfd94f962939f1d6ecc8649a4b8fd8df0db4374abdf1677c20e52a419d1dce46ab01aa99687d1ac4b6a1296
+  checksum: 8/95a7add92f34aa42b55492628f167c3aa94eec67cb74d94d252d3b479e9a7e85baa83de365b6dce592bae19434b7d1301e0cb94be3cd2396a2c39ca37b23789b
   languageName: node
   linkType: hard
 
@@ -7805,26 +7805,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.1.6#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.1#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.1#~builtin<compat/resolve>":
   version: 1.20.0
-  resolution: "resolve@patch:resolve@npm%3A1.20.0#optional!builtin<compat/resolve>::version=1.20.0&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=c3c19d"
   dependencies:
     is-core-module: "npm:^2.2.0"
     path-parse: "npm:^1.0.6"
-  checksum: b6a5345d1f015cebba11dffa6a1982b39fe9ef42ed86ed832e51bd01c10817666df6d7b11579bc88664f5d57f2a5fe073a7f46b4e72a3efe7ed0cb450ee786da
+  checksum: 8/a0dd7d16a8e47af23afa9386df2dff10e3e0debb2c7299a42e581d9d9b04d7ad5d2c53f24f1e043f7b3c250cbdc71150063e53d0b6559683d37f790b7c8c3cd5
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.22.4#~builtin<compat/resolve>":
   version: 1.22.6
-  resolution: "resolve@patch:resolve@npm%3A1.22.6#optional!builtin<compat/resolve>::version=1.22.6&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.6#~builtin<compat/resolve>::version=1.22.6&hash=c3c19d"
   dependencies:
     is-core-module: "npm:^2.13.0"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: acedc45a638b3635730669bb65e87bb61f5bf9b4e81982aba9ece0049ff792472a6fbb0c22cc59073cdbf17a0926c1d3d77ba86c88c60e15cc46f929278210cb
+  checksum: 8/9d3b3c67aefd12cecbe5f10ca4d1f51ea190891096497c43f301b086883b426466918c3a64f1bbf1788fabb52b579d58809614006c5d0b49186702b3b8fb746a
   languageName: node
   linkType: hard
 
@@ -8869,13 +8869,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@^5.3.3#~builtin<compat/typescript>":
   version: 5.3.3
-  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=e012d7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1d0a5f4ce496c42caa9a30e659c467c5686eae15d54b027ee7866744952547f1be1262f2d40de911618c242b510029d51d43ff605dba8fb740ec85ca2d3f9500
+  checksum: 8/4e604a9e107ce0c23b16a2f8d79d0531d4d8fe9ebbb7a8c395c66998c39892f0e0a071ef0b0d4e66420a8ec2b8d6cfd9cdb29ba24f25b37cba072e9282376df9
   languageName: node
   linkType: hard
 
