@@ -1,5 +1,8 @@
 # Lai(Local AI) CLI
-Lai was born out of a desire to simplify the process of interacting with models served up by LocalAI, and was heavily inspired by the initial direction of using the
+
+MIT Licensed
+
+Lai was born out of a desire to simplify the process of interacting with models served up by [LocalAI](https://github.com/mudler/LocalAI), and was heavily inspired by the initial direction of using the
 terminal to interact with the server in examples.  The main purpose of lai is to provide intuitive paths for search, download, and test of LLMs.  It mostly came from my own lack of skill using `jq` and `curl`, but
 still wanting the ease and use of a CLI. 
 
