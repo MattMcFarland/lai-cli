@@ -164,7 +164,6 @@ export default class Find extends BaseCommand {
     }),
   }
 
-  static aliases = ['f', 'list']
   static topic = 'find'
 
   static preprocessModelEntry(entry: ServersideModelEntry): ClientsideModelPresentationEntry {

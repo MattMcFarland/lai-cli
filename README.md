@@ -1,12 +1,21 @@
 # Lai(Local AI) CLI
 
-MIT Licensed
+MIT License
 
 Lai was born out of a desire to simplify the process of interacting with models served up by [LocalAI](https://github.com/mudler/LocalAI), and was heavily inspired by the initial direction of using the
 terminal to interact with the server in examples.  The main purpose of lai is to provide intuitive paths for search, download, and test of LLMs.  It mostly came from my own lack of skill using `jq` and `curl`, but
 still wanting the ease and use of a CLI. 
 
 Lai's speciality is to facilitate the exploration of AI models hosted (or accessible) via your favorite Local AI Server instance. The searching feature is powered by lunr (https://lunrjs.com), a lightweight search library providing a great search experience.  The data is then made even more accessible thanks to [OCLIF](https://oclif.io/)’s masterful UX framework which provides some handly tools for deailing with tabular data.
+
+
+<!-- toc -->
+* [Lai(Local AI) CLI](#lailocal-ai-cli)
+* [Design Philosophy](#design-philosophy)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
+
 
 # Design Philosophy
 Provide a human-centric CLI for interacting with LocalAI:
@@ -18,6 +27,20 @@ Provide a human-centric CLI for interacting with LocalAI:
 - search and filter powered by lunrjs
 - add and test different models, include sending prompts, etc.
 
+# Usage
+<!-- usage -->
+```sh-session
+$ npm install -g lai-cli
+$ lai COMMAND
+running command...
+$ lai (--version)
+lai-cli/1.0.0 linux-x64 node-v20.10.0
+$ lai --help [COMMAND]
+USAGE
+  $ lai COMMAND
+...
+```
+<!-- usagestop -->
 
 ## Basic Searching with lai
 With lai, you can perform basic searches to find models relevant to your interests or needs. Initiate a search by simply providing a keyword or phrase.
@@ -26,10 +49,13 @@ With lai, you can perform basic searches to find models relevant to your interes
 - Use tags to filter out the noise (in my case `--tag=gguf` was quite important)
 - Everything partial search with AND queries built in by default, `--name=13b.q3 --tag=dolly-15k` for example
 - More advanced queries explained further.
-
+### Example
+Here's simple flow of finding then installing a model:
 ```shell
-$ lai find "llama 7b"
-# outputs a list of matches, imagine we see  huggingface@thebloke__tulu-7b-gguf__tulu-7b.q4_k_s.gguf
+$ lai find "llama 7b" --tag=gguf
+```
+outputs a list of matches, imagine we see `huggingface@thebloke__tulu-7b-gguf__tulu-7b.q4_k_s.gguf`
+```shell
 $ lai add huggingface@thebloke__tulu-7b-gguf__tulu-7b.q4_k_s.gguf
 ```
 
@@ -91,31 +117,14 @@ Sometimes your search requires something extra; that's where lunr's special char
 ```shell
 $ lai find "\"minstrel\"" "+"accuracy -"deprecated" "*v2"
 ```
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
-```sh-session
-$ npm install -g lai-cli
-$ lai COMMAND
-running command...
-$ lai (--version)
-lai-cli/0.0.0 linux-x64 node-v20.10.0
-$ lai --help [COMMAND]
-USAGE
-  $ lai COMMAND
-...
-```
-<!-- usagestop -->
+
+
+
 # Commands
 <!-- commands -->
 * [`lai add ID`](#lai-add-id)
-* [`lai f [SEARCH]`](#lai-f-search)
 * [`lai find [SEARCH]`](#lai-find-search)
 * [`lai help [COMMANDS]`](#lai-help-commands)
-* [`lai list [SEARCH]`](#lai-list-search)
 * [`lai prompt <MODEL_NAME> -u [user-prompt] -s [system-prompt] [...flags] --help`](#lai-prompt-model_name--u-user-prompt--s-system-prompt-flags---help)
 * [`lai status`](#lai-status)
 
@@ -140,15 +149,11 @@ DESCRIPTION
 
   Install a model from a gallery or a URL
 
-  To install a model from a gallery, use the following format: 
-  <GALLERY>@<MODEL_NAME> (e.g., model-gallery@bert-embeddings)
-  To install a model from a GitHub repository, use the following format: 
-    github:<USER>/<REPO>/<PATH_TO_MODEL_DEFINITION>
-    (e.g., github:go-skynet/model-gallery/gpt4all-j.yaml)
-
-  Consider trying this command: 
-    lai add https://github.com/go-skynet/model-gallery/blob/main/openllama_3b.yaml --name
-  openllama_3b
+  To install a model from a gallery, use the following format: <GALLERY>@<MODEL_NAME> (e.g.,
+  model-gallery@bert-embeddings)
+  To install a model from a GitHub repository, use the following format: github:<USER>/<REPO>/<PATH_TO_MODEL_DEFINITION>
+  (e.g., github:go-skynet/model-gallery/gpt4all-j.yaml)
+  Consider trying this command: lai add github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
 
 EXAMPLES
   $ lai add github:go-skynet/model-gallery/gpt4all-j.yaml --name gpt4all-j
@@ -160,53 +165,7 @@ EXAMPLES
   $ lai add https://github.com/go-skynet/model-gallery/blob/main/openllama_3b.yaml --name openllama_3b
 ```
 
-_See code: [dist/commands/add.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/add.ts)_
-
-## `lai f [SEARCH]`
-
-Search for models, filtering by properties, with full or partial searching by text, phrase, etc. inclusion exclusion, anrd more
-
-```
-USAGE
-  $ lai f [SEARCH] [-a <value>] [-c] [-g <value>] [-t <value>] [-l <value>] [-u <value>] [-n <value>]
-    [- <value>] [--columns <value> | ] [--sort <value>] [--filter <value>] [-x] [--no-header | [--csv | --no-truncate]]
-    [-o json|csv|yaml |  |  | -j]
-
-ARGUMENTS
-  SEARCH  search-query
-
-FLAGS
-  -a, --address=<value>  [default: 127.0.0.1:8080] Address of the Local AI server
-  -c, --local            search only local models
-  -f, --file=<value>     search file [--file=.yaml] [--file=myfile.gguf]
-  -g, --gallery=<value>  search gallery [--gallery=model-gallery@bert-embeddings] (can search both sides of the @
-                         symbol)
-  -j, --json             Output in JSON format
-  -l, --license=<value>  search license [--license=apache-2.0]
-  -n, --name=<value>     search name [--name=bert-embeddings] alias is argument (lai find bert-embeddings)
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|csv|yaml>
-  -t, --tag=<value>      search tag [--tag=language-model]
-  -u, --url=<value>      search url [--url=/TheBloke]
-  -x, --extended         show extra columns
-      --columns=<value>  only show provided columns (comma-seperated)
-      --csv              output in csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
-      --no-header        hide table header from output
-      --no-truncate      do not truncate output to fit screen
-      --sort=<value>     [default: id] property to sort by (prepend ' - ' for descending)
-
-DESCRIPTION
-  Search for models, filtering by properties, with full or partial searching by text, phrase, etc. inclusion exclusion,
-  anrd more
-
-ALIASES
-  $ lai f
-  $ lai list
-
-EXAMPLES
-  $ lai f
-```
+_See code: [dist/commands/add.ts](https://github.com/MattMcFarland/lai-cli/blob/v1.0.0/dist/commands/add.ts)_
 
 ## `lai find [SEARCH]`
 
@@ -246,15 +205,11 @@ DESCRIPTION
   Search for models, filtering by properties, with full or partial searching by text, phrase, etc. inclusion exclusion,
   anrd more
 
-ALIASES
-  $ lai f
-  $ lai list
-
 EXAMPLES
   $ lai find
 ```
 
-_See code: [dist/commands/find.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/find.ts)_
+_See code: [dist/commands/find.ts](https://github.com/MattMcFarland/lai-cli/blob/v1.0.0/dist/commands/find.ts)_
 
 ## `lai help [COMMANDS]`
 
@@ -275,52 +230,6 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/lib/commands/help.ts)_
-
-## `lai list [SEARCH]`
-
-Search for models, filtering by properties, with full or partial searching by text, phrase, etc. inclusion exclusion, anrd more
-
-```
-USAGE
-  $ lai list [SEARCH] [-a <value>] [-c] [-g <value>] [-t <value>] [-l <value>] [-u <value>] [-n <value>]
-    [-f <value>] [--columns <value> | ] [--sort <value>] [--filter <value>] [-x] [--no-header | [--csv | --no-truncate]]
-    [-o json|csv|yaml |  |  | -j]
-
-ARGUMENTS
-  SEARCH  search-query
-
-FLAGS
-  -a, --address=<value>  [default: 127.0.0.1:8080] Address of the Local AI server
-  -c, --local            search only local models
-  -f, --file=<value>     search file [--file=.yaml] [--file=myfile.gguf]
-  -g, --gallery=<value>  search gallery [--gallery=model-gallery@bert-embeddings] (can search both sides of the @
-                         symbol)
-  -j, --json             Output in JSON format
-  -l, --license=<value>  search license [--license=apache-2.0]
-  -n, --name=<value>     search name [--name=bert-embeddings] alias is argument (lai find bert-embeddings)
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|csv|yaml>
-  -t, --tag=<value>      search tag [--tag=language-model]
-  -u, --url=<value>      search url [--url=/TheBloke]
-  -x, --extended         show extra columns
-      --columns=<value>  only show provided columns (comma-seperated)
-      --csv              output in csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
-      --no-header        hide table header from output
-      --no-truncate      do not truncate output to fit screen
-      --sort=<value>     [default: id] property to sort by (prepend ' - ' for descending)
-
-DESCRIPTION
-  Search for models, filtering by properties, with full or partial searching by text, phrase, etc. inclusion exclusion,
-  anrd more
-
-ALIASES
-  $ lai f
-  $ lai list
-
-EXAMPLES
-  $ lai list
-```
 
 ## `lai prompt <MODEL_NAME> -u [user-prompt] -s [system-prompt] [...flags] --help`
 
@@ -364,7 +273,7 @@ EXAMPLES
     $ lai prompt lunademo --system "answer questions" --user "What is your name?"
 ```
 
-_See code: [dist/commands/prompt.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/prompt.ts)_
+_See code: [dist/commands/prompt.ts](https://github.com/MattMcFarland/lai-cli/blob/v1.0.0/dist/commands/prompt.ts)_
 
 ## `lai status`
 
@@ -385,5 +294,5 @@ EXAMPLES
   $ lai status
 ```
 
-_See code: [dist/commands/status.ts](https://github.com/MattMcFarland/lai-cli/blob/v0.0.0/dist/commands/status.ts)_
+_See code: [dist/commands/status.ts](https://github.com/MattMcFarland/lai-cli/blob/v1.0.0/dist/commands/status.ts)_
 <!-- commandsstop -->
