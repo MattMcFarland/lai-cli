@@ -1269,7 +1269,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.19.4":
+"@types/node@npm:*":
   version: 18.19.4
   resolution: "@types/node@npm:18.19.4"
   dependencies:
@@ -1282,6 +1282,15 @@ __metadata:
   version: 15.14.9
   resolution: "@types/node@npm:15.14.9"
   checksum: fe5b69cffd20f97c814d568c1d791b3c367f9efa6567a18d2c15cd73c5437f47bcff73a2e10bdfe59f90ce7df47e6cc3c6d431c76d2213bf6099e8ab5d16d355
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.19.26":
+  version: 18.19.26
+  resolution: "@types/node@npm:18.19.26"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: 8/d72d4e7e520206a2a05cb3e03a73696fc3bdcdc6ba5330a75cfef4818cb137b260c32dfe85e8b4ea28e8fe92f1d1497e26336c607254c5eaf47032a1b1c8bb6e
   languageName: node
   linkType: hard
 
@@ -5468,7 +5477,7 @@ __metadata:
     "@types/joi": ^17.2.3
     "@types/lunr": ^2.3.7
     "@types/mocha": ^10.0.6
-    "@types/node": ^18.19.4
+    "@types/node": ^18.19.26
     "@types/uuid": ^9
     axios: ^1.6.5
     chai: ^4.4.0
